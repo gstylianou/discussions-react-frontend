@@ -1,4 +1,4 @@
-name: Build workflow
+name: CI
 
 # run-name: executed by ${{ github.actor }} 
 
@@ -11,7 +11,7 @@ on:
 
 jobs:
 
-  build:
+  test:
 
     runs-on: ubuntu-latest
 
@@ -26,11 +26,14 @@ jobs:
       run: npm ci
     - name: Run tests
       run: npm run test-ci
+
+  build_docker_image:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
     - name: Build Docker image
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
 
-  # run:
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     run: docker run --rm -p 4000:4000 graphql-nestjs-app 
+  
