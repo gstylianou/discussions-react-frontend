@@ -1,6 +1,6 @@
 name: Build workflow
 
-run-name: executed by ${{ github.actor }} 
+# run-name: executed by ${{ github.actor }} 
 
 on:
   workflow_dispatch:    
