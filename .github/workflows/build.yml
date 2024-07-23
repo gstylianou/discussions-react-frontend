@@ -28,6 +28,7 @@ jobs:
       run: npm run test-ci
 
   build_docker_image:
+    needs: test
     runs-on: ubuntu-latest
 
     steps:
