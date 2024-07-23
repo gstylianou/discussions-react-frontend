@@ -18,6 +18,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+    - name: Run tests
+      run: npm run test-ci
     - name: Build Docker image
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
 
