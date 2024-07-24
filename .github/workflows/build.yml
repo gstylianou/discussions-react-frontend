@@ -46,9 +46,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: build-files
-        path: |
-          dist
-          package.json
+        path: build          
   # build_docker_image:
   #   needs: test
   #   runs-on: ubuntu-latest
