@@ -46,7 +46,20 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: build-files
-        path: build          
+        path: build
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Get build artifacts 
+        uses: actions/download-artifact@v4
+        with:
+          name: build-files
+      - name: Output contents
+        run: ls
+      # - name: Deploy
+
+
   # build_docker_image:
   #   needs: test
   #   runs-on: ubuntu-latest
