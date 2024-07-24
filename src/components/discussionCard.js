@@ -28,7 +28,7 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 // import DropzoneArea from './dropZoneArea';
 import { Dropzone, FileMosaic } from '@files-ui/react';
 import Accordion from './accordion';
-// import * as APIAdapter from '../backend/adapter';
+import * as APIAdapter from '../backend/adapter';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -94,6 +94,7 @@ export default function DiscussionCard({ data, onChangeCard }) {
       state.main.text = text;
       state.main.empty = false;
       state.main.stars = 0;
+      APIAdapter.post(state.main);
       onChangeCard(state, true);
     } else {
       let id = 0;

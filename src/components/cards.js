@@ -3,21 +3,10 @@ import DiscussionCard from './discussionCard';
 import * as React from 'react';
 import { useReducer } from 'react';
 import cardsReducer from '../state/cardsReducer';
-
+import PropTypes from 'prop-types';
 
 Cards.propTypes = {
-  data: PropTypes.shape({
-    main: PropTypes.shape({
-      id: PropTypes.string,
-      text: PropTypes.string,
-      stars: PropTypes.number,
-      empty: PropTypes.bool,
-      source: PropTypes.string,
-      poster: PropTypes.string,
-    }),
-    children: PropTypes.array,
-  }),
-  onChangeCard: PropTypes.func,
+  data: PropTypes.array,
 };
 
 export default function Cards({ data }) {

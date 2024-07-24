@@ -1,47 +1,94 @@
 import axios from 'axios';
-import FormData from 'form-data';
-
-const client = axios.create({
-  baseURL: 'http://localhost:4000/graphql',
-  headers: {
-    'apollo-require-preflight': 'true',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-    // ...data.getHeaders(),
-  },
-});
-
-client.options.headers = {
-  'apollo-require-preflight': 'true',
-};
 
 async function post(dataIn) {
-  console.log('data from UI', dataIn);
+  console.log('dataIn', dataIn);
+  const data = JSON.stringify({
+    query: `mutation{ createDiscussion(discussion: { discussionId: ${dataIn.id}, text: "${dataIn.text}"  }) {
+    id
+    main {
+      id
+      text
+      images
+      videos
+    }
+    children {
+      id
+      text
+      images
+      videos
+    }
+  }
+}`,
+  });
 
-  const data = new FormData();
-  data.append('operations', '{"query": "mutation ($image1: Upload!){createDiscussionWithUpload(discussionInput: {discussionId:101,text:\\"question with image\\",images: [$image1]}) {id main {id text images} children {id text images}} }", "variables":{"image1":null}}');
-  data.append('map', '{ "0": ["variables.image1"] }');
-  // data.append('0', fs.createReadStream('postman-cloud:///1ef2736a-a93e-40b0-b9c0-47faaca11bc6'));
+  console.log('body', data);
 
   const config = {
     method: 'post',
     maxBodyLength: Infinity,
-    url: 'localhost:4000/graphql',
-    // headers: {
-    //   'apollo-require-preflight': 'true',
-    //   'Access-Control-Allow-Origin': '*',
-    //   'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-    //   // ...data.getHeaders(),
-    // },
+    baseURL: 'http://127.0.0.1:4000/graphql',
+    headers: {
+      'Content-Type': 'application/json',
+      'apollo-require-preflight': 'true',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+    },
     data: data,
   };
 
   try {
-    const response = await client.request(config);
-    // console.log(JSON.stringify(response.data));
+    // console.log('config', config);
+    const response = await axios.post('', data, config);
+    console.log('response', response);
   } catch (error) {
     console.log(error);
   }
 }
+
+
+// async function post(dataIn) {
+//   console.log('data from UI', dataIn);
+
+//   const client = axios.create({
+//     baseURL: 'http://localhost:4000/graphql',
+//     headers: {
+//       'apollo-require-preflight': 'true',
+//       'Access-Control-Allow-Origin': '*',
+//       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+//       'Content-Type': 'application/json',
+//     },
+//     method: 'post',
+//   });
+
+//   client.options.headers = {
+//     'apollo-require-preflight': 'true',
+//   };
+
+//   const body = JSON.stringify({
+//     query: `mutation{
+//     createDiscussion(discussion: { discussionId: 3, text: "AAA" }) {
+//       id
+//       main {
+//         id
+//         text
+//       }
+//       children {
+//         id
+//         text
+//       }
+//     }
+//   }`,
+//     variables: {},
+//   });
+
+//   console.log('request body', body);
+//   try {
+//     const response = await client.post({ url: '', data: body });
+//     return response;
+//   } catch (error) {
+//     console.log('axios post error from frontend', error);
+//     return '';
+//   };
+// }
 
 export { post };
