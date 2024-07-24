@@ -42,6 +42,13 @@ jobs:
       run: npm ci
     - name: Build frontend
       run: npm run build
+    - name: upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-files
+        path: |
+          dist
+          package.json
   # build_docker_image:
   #   needs: test
   #   runs-on: ubuntu-latest
