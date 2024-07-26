@@ -1,5 +1,62 @@
 import axios from 'axios';
 
+async function get(userId) {
+  console.log('userId [not used yet]', userId);
+  const data = JSON.stringify({
+    query: `query {
+    discussions {
+      id
+      main {
+        id
+        text
+        stars
+        approved
+        replyNumber
+        owner
+        images
+        videos
+        empty
+      }
+      children {
+        id
+        text
+        stars
+        approved
+        replyNumber
+        owner
+        images
+        videos
+        empty
+      }
+    }
+}`,
+  });
+
+  console.log('body', data);
+
+  const config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    baseURL: 'http://127.0.0.1:4000/graphql',
+    headers: {
+      'Content-Type': 'application/json',
+      'apollo-require-preflight': 'true',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+    },
+    data: data,
+  };
+
+  try {
+    const response = await axios.post('', data, config);
+    console.log('Adapter get response', response.data.data.discussions);
+    return response.data.data.discussions;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
 async function post(dataIn) {
   console.log('dataIn', dataIn);
   const data = JSON.stringify({
@@ -7,15 +64,25 @@ async function post(dataIn) {
     id
     main {
       id
-      text
-      images
-      videos
+        text
+        stars
+        approved
+        replyNumber
+        owner
+        images
+        videos
+        empty
     }
     children {
-      id
-      text
-      images
-      videos
+         id
+        text
+        stars
+        approved
+        replyNumber
+        owner
+        images
+        videos
+        empty
     }
   }
 }`,
@@ -91,4 +158,4 @@ async function post(dataIn) {
 //   };
 // }
 
-export { post };
+export { post, get };

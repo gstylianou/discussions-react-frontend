@@ -2,16 +2,21 @@ import './App.css';
 import * as React from 'react';
 import Cards from './components/cards';
 import { useLoaderData } from 'react-router-dom';
+import * as APIAdapter from './backend/adapter';
 
 // eslint-disable-next-line prefer-const
 let discussionEmpty = {
+  id: 1,
   main: {
-    id: '2',
-    text: null,
+    id: 2,
+    text: '',
     stars: 0,
     empty: true,
     replyNumber: 0,
     approved: false,
+    owner: 'george',
+    images: [],
+    videos: [],
   },
   children: [],
 };
@@ -62,13 +67,17 @@ const discussion = {
 };
 
 
-const discussions = [discussion, discussionEmpty];
+let discussions = [discussion, discussionEmpty];
 
 
 export async function loader({ params, request }) {
   const url = new URL(request.url);
-  const user = url.searchParams.get('user');
+  const user = url.searchParams.get('user') || 'dummy-user';
   console.log('user=' + user);
+  const response = await APIAdapter.get(user);
+  console.log('APP response', response);
+  console.log('discussions in app', response, [discussionEmpty]);
+  discussions = response;
   return user;
 }
 
@@ -76,7 +85,6 @@ export async function loader({ params, request }) {
 // eslint-disable-next-line require-jsdoc
 function App() {
   const params = useLoaderData();
-
   return (
     <>
       <Cards data={discussions} />

@@ -56,7 +56,7 @@ const VisuallyHiddenInput = styled('input')`
 DiscussionCard.propTypes = {
   data: PropTypes.shape({
     main: PropTypes.shape({
-      id: PropTypes.string,
+      id: PropTypes.number,
       text: PropTypes.string,
       stars: PropTypes.number,
       empty: PropTypes.bool,
@@ -68,8 +68,8 @@ DiscussionCard.propTypes = {
   onChangeCard: PropTypes.func,
 };
 
-function handleFinishUpload() {
-  console.log('handle finish upload');
+function handleFinishUpload(params) {
+  console.log('handle finish upload', params);
 }
 
 export default function DiscussionCard({ data, onChangeCard }) {
@@ -85,16 +85,22 @@ export default function DiscussionCard({ data, onChangeCard }) {
     return state.main.empty == true ? 'Enter your question/request:' : 'Enter your answer:';
   }
 
-  function setQuestion() {
+  async function setQuestion() {
     console.log('set question is triggered', state);
     if (text.length == 0) {
       return;
     }
+    // only this section must remain
+    const response = await APIAdapter.post({ id: state.id, text });
+    console.log('backend save response', response);
+
+
+    // response must be used to update the state
+    // end of section
     if (state.main.empty == true) {
       state.main.text = text;
       state.main.empty = false;
       state.main.stars = 0;
-      APIAdapter.post(state.main);
       onChangeCard(state, true);
     } else {
       let id = 0;
@@ -123,7 +129,7 @@ export default function DiscussionCard({ data, onChangeCard }) {
   const [files, setFiles] = React.useState([]);
   const updateFiles = (incomingFiles) => {
     // do something with the files
-    console.log('incoming files code', incomingFiles, files);
+    console.log('incoming files', incomingFiles, files);
     setFiles(incomingFiles);
     // even your own upload implementation
   };
