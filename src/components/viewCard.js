@@ -28,7 +28,7 @@ const ExpandMore = styled((props) => {
 
 ViewCard.propTypes = {
   data: PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.number,
     videos: PropTypes.array,
     images: PropTypes.array,
     text: PropTypes.string,

@@ -1,7 +1,7 @@
 
 const emptyCard = {
   main: {
-    id: '1',
+    id: 1,
     text: null,
     stars: 0,
     empty: true,
@@ -14,7 +14,7 @@ export default function cardsReducer(cards, action) {
     case 'changed':
       if (action.newQuestion == true) {
         const newCard = _.cloneDeep(emptyCard);
-        newCard.main.id = (Number(cards[cards.length - 1].main.id) + 1).toString();
+        newCard.main.id = cards[cards.length - 1].main.id + 1;
         return [
           ...cards,
           newCard,

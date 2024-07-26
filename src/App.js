@@ -67,7 +67,7 @@ const discussion = {
 };
 
 
-let discussions = [discussion, discussionEmpty];
+let discussions = []; // [discussion, discussionEmpty];
 
 
 export async function loader({ params, request }) {
@@ -85,6 +85,7 @@ export async function loader({ params, request }) {
 // eslint-disable-next-line require-jsdoc
 function App() {
   const params = useLoaderData();
+  console.log('executes before or after loader');
   return (
     <>
       <Cards data={discussions} />

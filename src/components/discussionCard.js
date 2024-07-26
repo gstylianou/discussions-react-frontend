@@ -59,9 +59,12 @@ DiscussionCard.propTypes = {
       id: PropTypes.number,
       text: PropTypes.string,
       stars: PropTypes.number,
+      approved: PropTypes.bool,
+      replyNumber: PropTypes.number,
+      owner: PropTypes.string,
       empty: PropTypes.bool,
-      source: PropTypes.string,
-      poster: PropTypes.string,
+      videos: PropTypes.array,
+      images: PropTypes.array,
     }),
     children: PropTypes.array,
   }),
@@ -81,6 +84,8 @@ export default function DiscussionCard({ data, onChangeCard }) {
   };
   const state = data;
 
+  console.log('loading discussion card with state', state);
+
   function renderLabel() {
     return state.main.empty == true ? 'Enter your question/request:' : 'Enter your answer:';
   }
@@ -94,27 +99,31 @@ export default function DiscussionCard({ data, onChangeCard }) {
     const response = await APIAdapter.post({ id: state.id, text });
     console.log('backend save response', response);
 
+    state.main = _.cloneDeep(response.main);
+    state.children = _.cloneDeep(response.children);
+
+    // onChangeCard(state, false);
 
     // response must be used to update the state
     // end of section
-    if (state.main.empty == true) {
-      state.main.text = text;
-      state.main.empty = false;
-      state.main.stars = 0;
-      onChangeCard(state, true);
-    } else {
-      let id = 0;
-      if (state.children.length > 0) {
-        id = Number(state.children[state.children.length - 1].id);
-      }
-      id = (id == 0 ? Number(state.id) * 10 : id + 1);
-      state.children = [...state.children, {
-        id: id.toString(),
-        text: text,
-        stars: 0,
-      }];
-      onChangeCard(state, false);
-    }
+    // if (state.main.empty == true) {
+    //   state.main.text = text;
+    //   state.main.empty = false;
+    //   state.main.stars = 0;
+    //   onChangeCard(state, true);
+    // } else {
+    //   let id = 0;
+    //   if (state.children.length > 0) {
+    //     id = Number(state.children[state.children.length - 1].id);
+    //   }
+    //   id = (id == 0 ? Number(state.id) * 10 : id + 1);
+    //   state.children = [...state.children, {
+    //     id: id,
+    //     text: text,
+    //     stars: 0,
+    //   }];
+    //   onChangeCard(state, false);
+    // }
 
     setText('');
   }
@@ -134,21 +143,10 @@ export default function DiscussionCard({ data, onChangeCard }) {
     // even your own upload implementation
   };
 
-  //   .then {
-  //     console.log('incoming files code', files);
-  // };
-
-  // APIAdapter.post(state);
-  // const removeFile = (id) => {
-  //   console.log('removing files', files);
-  //   setFiles(files.filter((x) => x.id !== id));
-  // };
 
   return (
     <Card sx={{ maxWidth: 0.9, minWidth: 400, marginBottom: 5 }}>
       <CardContent>
-
-
         {/* <RenderTreeView data={state} onChangeCard={onChangeCard} /> */}
         <Accordion data={state} onChangeCard={onChangeCard} />
         <Typography variant="body1" color="text.secondary" sx={{ marginTop: 5 }}>

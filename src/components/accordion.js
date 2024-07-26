@@ -51,6 +51,7 @@ function showMedia(media) {
 
 
 function AccordionItem({ node, parent, onChangeCard }) {
+  console.log('AccordionItem', node);
   function setStarRating(rating) {
     node.stars = rating;
     onChangeCard({ ...node, stars: rating }, false);
@@ -71,6 +72,7 @@ function AccordionItem({ node, parent, onChangeCard }) {
 }
 
 function AccordionChild({ node, onChangeCard }) {
+  console.log('AccordionChild', node);
   if (node.empty == true) {
     return (<></>);
   }
@@ -95,7 +97,7 @@ function AccordionChild({ node, onChangeCard }) {
 export default function AccordionUsage({ data, onChangeCard }) {
   function render(nodes) {
     const childrenApproved = Array.isArray(nodes.children) ? nodes.children.filter((x) => x.approved == true) : null;
-
+    console.log('childrenApproved', childrenApproved);
     if (nodes.main.empty == true) {
       return (
         <>

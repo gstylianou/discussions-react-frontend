@@ -88,7 +88,7 @@ async function post(dataIn) {
 }`,
   });
 
-  console.log('body', data);
+  console.log('request body', data);
 
   const config = {
     method: 'post',
@@ -106,7 +106,8 @@ async function post(dataIn) {
   try {
     // console.log('config', config);
     const response = await axios.post('', data, config);
-    console.log('response', response);
+    console.log('post response', response.data.data.createDiscussion);
+    return response.data.data.createDiscussion;
   } catch (error) {
     console.log(error);
   }
