@@ -60,7 +60,7 @@ async function get(userId) {
 async function post(dataIn) {
   console.log('dataIn', dataIn);
   const data = JSON.stringify({
-    query: `mutation{ createDiscussion(discussion: { discussionId: ${dataIn.id}, text: "${dataIn.text}"  }) {
+    query: `mutation{ createDiscussion(discussion: { discussionId: ${dataIn.id}, text: "${dataIn.text}", files: ${JSON.stringify(dataIn.files)} }) {
     id
     main {
       id
@@ -71,6 +71,7 @@ async function post(dataIn) {
         owner
         images
         videos
+        files
         empty
     }
     children {
@@ -82,6 +83,7 @@ async function post(dataIn) {
         owner
         images
         videos
+        files
         empty
     }
   }
