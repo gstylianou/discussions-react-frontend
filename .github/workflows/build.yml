@@ -101,6 +101,6 @@ jobs:
         tags: |
           ghcr.io/${{github.repository}}/react_frontend:latest
           ghcr.io/${{github.repository}}/react_frontend:${{ github.sha }}
-          ermis.azurecr.io/react_frontend:latest
+          mcr.microsoft.com/mcr/react_frontend:latest
 
   
