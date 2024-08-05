@@ -120,6 +120,7 @@ jobs:
           disableTelemetry: true
           containerAppName: frontend-react
           imageToDeploy: ermis.azurecr.io/react_frontend:latest
+          location: westeurope
     
 
   
