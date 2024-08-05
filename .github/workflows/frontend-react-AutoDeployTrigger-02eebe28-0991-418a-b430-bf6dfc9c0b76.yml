@@ -4,8 +4,8 @@ name: Trigger auto deployment for frontend-react
 on:
   # Automatically trigger it when detected changes in repo
   push:
-    branches: 
-      [ master ]
+    # branches: 
+    #   [ master ]
     paths:
     - '**'
     - '.github/workflows/frontend-react-AutoDeployTrigger-02eebe28-0991-418a-b430-bf6dfc9c0b76.yml'
