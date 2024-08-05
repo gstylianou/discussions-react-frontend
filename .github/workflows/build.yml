@@ -121,6 +121,7 @@ jobs:
           acrUsername: ${{ secrets.AZURE_CLIENT_ID }}
           acrPassword: ${{ secrets.AZURE_CLIENT_SECRET }}
           containerAppName: frontend-react
+          resourceGroup: frontend-react-rg
           imageToDeploy: ermis.azurecr.io/react_frontend:latest
           disableTelemetry: true    
           targetPort: 80        

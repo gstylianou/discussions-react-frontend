@@ -3,12 +3,12 @@ name: Trigger auto deployment for frontend-react
 # When this action will be executed
 on:
   # Automatically trigger it when detected changes in repo
-  push:
+  # push:
     # branches: 
     #   [ master ]
-    paths:
-    - '**'
-    - '.github/workflows/frontend-react-AutoDeployTrigger-02eebe28-0991-418a-b430-bf6dfc9c0b76.yml'
+    # paths:
+    # - '**'
+    # - '.github/workflows/frontend-react-AutoDeployTrigger-02eebe28-0991-418a-b430-bf6dfc9c0b76.yml'
 
   # Allow manual trigger 
   workflow_dispatch:      
@@ -41,7 +41,7 @@ jobs:
           containerAppName: frontend-react
           resourceGroup: frontend-react-rg
           imageToBuild: ermis.azurecr.io/frontend-react:${{ github.sha }}
-          _buildArgumentsKey_: |
-            _buildArgumentsValues_
+          # _buildArgumentsKey_: |
+          #   _buildArgumentsValues_
 
 
