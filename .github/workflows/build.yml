@@ -119,7 +119,8 @@ jobs:
         with:
           disableTelemetry: true
           containerAppName: frontend-react
-          imageToDeploy: mcr.microsoft.com/azuredocs/react_frontend:latest
+          imageToDeploy: ermis.azurecr.io/react_frontend:latest
+            # mcr.microsoft.com/azuredocs/react_frontend:latest
           location: westeurope
     
 
