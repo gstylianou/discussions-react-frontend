@@ -1,0 +1,43 @@
+name: Trigger auto deployment for frontend-react
+
+# When this action will be executed
+on:
+  # Automatically trigger it when detected changes in repo
+  push:
+    branches: 
+      [ master ]
+    paths:
+    - '**'
+    - '.github/workflows/frontend-react-AutoDeployTrigger-7032bb6e-8747-4d38-9173-76140f780f30.yml'
+
+  # Allow manual trigger 
+  workflow_dispatch:
+      
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.FRONTENDREACT_AZURE_CREDENTIALS }}
+
+      - name: Build and push container image to registry
+        uses: azure/container-apps-deploy-action@v2
+        with:
+          appSourcePath: ${{ github.workspace }} 
+          registryUrl: ermis.azurecr.io
+          registryUsername: ${{ secrets.FRONTENDREACT_REGISTRY_USERNAME }}
+          registryPassword: ${{ secrets.FRONTENDREACT_REGISTRY_PASSWORD }}
+          containerAppName: frontend-react
+          resourceGroup: frontend-react-rg
+          imageToBuild: ermis.azurecr.io/react_frontend:${{ github.sha }}
+          
+            
+
+     
+
