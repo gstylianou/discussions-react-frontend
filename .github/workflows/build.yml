@@ -113,12 +113,19 @@ jobs:
         uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-
+      # - name: Login to ACR
+      #   uses: docker/login-action@v3
+      #   with:
+      #     registry: ermis.azurecr.io
+      #     username: ${{ secrets.AZURE_CLIENT_ID }}
+      #     password: ${{ secrets.AZURE_CLIENT_SECRET }}
       - name: Build and deploy Container App
         uses: azure/container-apps-deploy-action@v2        
         with:
           disableTelemetry: true
           acrName: ermis
+          acrUsername: ${{ secrets.AZURE_CLIENT_ID }}
+          acrPassword: ${{ secrets.AZURE_CLIENT_SECRET }}
           containerAppName: frontend-react
           imageToDeploy: ermis.azurecr.io/react_frontend:latest
             # mcr.microsoft.com/azuredocs/react_frontend:latest
