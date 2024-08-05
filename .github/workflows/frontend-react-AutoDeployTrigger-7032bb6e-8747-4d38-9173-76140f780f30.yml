@@ -35,7 +35,7 @@ jobs:
           registryPassword: ${{ secrets.FRONTENDREACT_REGISTRY_PASSWORD }}
           containerAppName: frontend-react
           resourceGroup: frontend-react-rg
-          imageToBuild: ermis.azurecr.io/react_frontend:${{ github.sha }}
+          imageToBuild: ermis.azurecr.io/react_frontend:latest
           
             
 
