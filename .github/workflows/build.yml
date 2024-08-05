@@ -118,6 +118,7 @@ jobs:
         uses: azure/container-apps-deploy-action@v2        
         with:
           disableTelemetry: true
+          containerAppName: frontend-react
           imageToDeploy: mcr.microsoft.com/azuredocs/react_frontend:latest
     
 
