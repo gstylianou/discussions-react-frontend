@@ -115,8 +115,9 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Build and deploy Container App
-        uses: azure/container-apps-deploy-action@v2
+        uses: azure/container-apps-deploy-action@v2        
         with:
+          disableTelemetry: true
           imageToDeploy: mcr.microsoft.com/azuredocs/react_frontend:latest
     
 
