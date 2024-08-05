@@ -118,6 +118,7 @@ jobs:
         uses: azure/container-apps-deploy-action@v2        
         with:
           disableTelemetry: true
+          acrName: ermis
           containerAppName: frontend-react
           imageToDeploy: ermis.azurecr.io/react_frontend:latest
             # mcr.microsoft.com/azuredocs/react_frontend:latest
