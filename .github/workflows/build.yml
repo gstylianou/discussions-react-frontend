@@ -4,8 +4,8 @@ name: CI
 
 on:
   workflow_dispatch:    
-  # push:
-  #   branches: [ "master" ]
+  push:
+    branches: [ "master" ]
   # pull_request:
   #   branches: [ "master" ]
 
@@ -121,8 +121,8 @@ jobs:
           acrUsername: ${{ secrets.AZURE_CLIENT_ID }}
           acrPassword: ${{ secrets.AZURE_CLIENT_SECRET }}
           containerAppName: frontend-react
-          resourceGroup: frontend-react-rg
-          containerAppEnvironment: frontend-react-env
+          resourceGroup: ermis
+          containerAppEnvironment: apps-env
           imageToDeploy: ermis.azurecr.io/react_frontend:latest
           disableTelemetry: true    
           targetPort: 80        
